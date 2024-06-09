@@ -3,6 +3,7 @@ package net.vercte.lavabuckettrash.mixin;
 import java.util.List;
 
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -23,8 +24,7 @@ import net.vercte.lavabuckettrash.LavaBucketTrash;
 
 @Mixin(AbstractContainerScreen.class)
 public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMenu> extends Screen implements MenuAccess<T> {
-    @Accessor public abstract T getMenu();
-    @Accessor public abstract Slot getHoveredSlot();
+    @Shadow private Slot hoveredSlot;
 
     public AbstractContainerScreenMixin(Component component) {
         super(component);
@@ -34,10 +34,10 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
     protected void renderTooltip(GuiGraphics guiGraphics, int i, int j, CallbackInfo ci) {
         Minecraft mc = Minecraft.getInstance();
         Player player = mc.player;
-        if(!getMenu().getCarried().isEmpty() && getHoveredSlot() != null && getHoveredSlot().hasItem()) {
-            ItemStack itemStack = this.getHoveredSlot().getItem();
+        if(!getMenu().getCarried().isEmpty() && this.hoveredSlot != null && this.hoveredSlot.hasItem()) {
+            ItemStack itemStack = this.hoveredSlot.getItem();
             ItemStack incoming = getMenu().getCarried();
-            if(LavaBucketTrash.canTrashItem(itemStack, incoming, getHoveredSlot(), player)) {
+            if(LavaBucketTrash.canTrashItem(itemStack, incoming, this.hoveredSlot, player)) {
                 List<Component> text = List.of(Component.translatable("lavabuckettrash.tooltip").withStyle(ChatFormatting.RED));
                 guiGraphics.renderTooltip(this.font, text, itemStack.getTooltipImage(), i, j);
             }
