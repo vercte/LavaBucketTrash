@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "lavabuckettrash",
+	"version": "${version}",
+	"name": "Lava Bucket Trashing",
+	"description": "Right-click items on a lava bucket in your inventory to destroy them",
+	"authors": [
+		"Vercte"
+	],
+	"contact": {
+		"sources": "https://github.com/vercte/LavaBucketTrash"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/lavabuckettrash/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.vercte.lavabuckettrash.LavaBucketTrash"
+		]
+	},
+	"mixins": [
+		"lavabuckettrash.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	},
+	"suggests": {}
+}

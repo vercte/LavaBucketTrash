@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"package": "net.vercte.lavabuckettrash.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"ItemMixin",
+		"AbstractContainerScreenMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}
